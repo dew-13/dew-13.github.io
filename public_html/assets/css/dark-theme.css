@@ -1,0 +1,306 @@
+/* ==========================================================================
+   dark-theme.css  —  violet + cyan dark theme overlay for dew.css
+   --------------------------------------------------------------------------
+   Load AFTER dew.css. Changes colour only: no geometry, spacing, font,
+   or layout property is touched. Remove the <link> to revert completely.
+   ========================================================================== */
+
+:root {
+    /* surfaces */
+    --surface:        #08090D;
+    --surface-band:   #0E1017;
+    --surface-raised: #161A26;
+    --surface-sunken: #04050A;
+    --border:         #232838;
+    --border-strong:  #333A4E;
+
+    /* accents — violet fills, lighter violet for text, cyan second voice */
+    --accent:         #8B5CF6;
+    --accent-text:    #A78BFA;
+    --accent-2:       #22D3EE;
+    --accent-soft:    rgba(139, 92, 246, .12);
+    --accent-glow:    rgba(139, 92, 246, .35);
+    --accent-grad:    linear-gradient(90deg, #8B5CF6 0%, #22D3EE 100%);
+
+    /* text */
+    --text:           #F4F6FB;
+    --text-body:      #B8BFCE;
+    --text-muted:     #8A92A4;
+}
+
+/* --------------------------------------------------------------- base ---- */
+body {
+    background-color: var(--surface);
+    color: var(--text);
+}
+
+h1, h2, h3, h4, h5, h6 { color: var(--text); }
+
+/* dew.css ships p{color:#444;opacity:.8} — recolour and drop the dimmer,
+   since the token is already tuned for this background */
+p {
+    color: var(--text-body);
+    opacity: 1;
+}
+
+a { color: var(--accent-text); }
+a:hover { color: var(--accent-2); }
+
+::selection { background: var(--accent); color: #fff; }
+
+/* thin dark scrollbar to match */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--surface-sunken); }
+::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ------------------------------------------------------------- header ---- */
+/* was a flat rgba(0,0,0,.7) scrim; now a violet-tinted directional wash
+   so the hero reads intentional rather than merely darkened */
+.header {
+    background-image:
+        linear-gradient(160deg, rgba(22, 11, 54, .76) 0%, rgba(8, 9, 13, .92) 100%),
+        url(../imgs/header.jpg);
+}
+
+.header .header-content .header-subtitle { color: var(--accent-text); }
+.header .header-content .header-mono     { color: var(--accent-2); }
+
+/* dew.css has a second, unscoped .header-title{opacity:.8} rule that also
+   matches this element and was greying the name out */
+.header .header-content .header-title {
+    color: var(--text);
+    opacity: 1;
+    text-shadow: 0 2px 40px rgba(0, 0, 0, .5);
+}
+
+.header .social-icons .social-link.text-light { color: var(--text-body) !important; }
+.header .social-icons .social-link:hover      { color: var(--accent-2) !important; }
+
+/* ------------------------------------------------------------- navbar ---- */
+/* .bg-white is overridden only inside .navbar, so the utility keeps its
+   meaning anywhere else it is used */
+.navbar.bg-white {
+    background-color: var(--surface-raised) !important;
+}
+
+/* the hairline is an INSET shadow, not a border: a real border-bottom adds
+   1px to the navbar box and shifts the whole page down */
+.navbar {
+    box-shadow: inset 0 -1px 0 var(--border), 0 1px 24px rgba(0, 0, 0, .6);
+    -webkit-box-shadow: inset 0 -1px 0 var(--border), 0 1px 24px rgba(0, 0, 0, .6);
+}
+
+.navbar-light .navbar-nav .nav-link { color: var(--text-body); }
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus { color: var(--text); }
+.navbar .nav-link.active { color: var(--accent-text) !important; }
+
+.navbar-light .navbar-toggler {
+    color: var(--text-body);
+    border-color: var(--border-strong);
+}
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='%23B8BFCE' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* the avatar ring was 10px solid white — a hard glare on dark */
+.navbar .brand .brand-img {
+    border-color: var(--surface-raised);
+    box-shadow: 0 0 0 1px var(--accent), 0 6px 28px var(--accent-glow);
+    filter: brightness(.94) saturate(.97);
+}
+.navbar .brand .brand-title    { color: var(--text); }
+.navbar .brand .brand-subtitle { color: var(--text-muted); }
+
+/* ----------------------------------------------------------- sections ---- */
+.section { background-color: var(--surface); }
+
+/* portfolio band */
+.section.bg-custom-gray { background: var(--surface-band); }
+
+/* the two feature bands were .bg-dark (#343a40); polarity flips so they
+   now sit RAISED above the page, preserving the alternation */
+.bg-dark { background-color: var(--surface-raised) !important; }
+
+/* the big stat glyphs inherited .text-light and read as dull grey */
+.bg-dark .icon-xl { color: var(--accent-2) !important; }
+
+.about-section              { border-bottom-color: var(--border); }
+.about-section .about-card  { border-right-color:  var(--border); }
+.about-section .about-card:last-child { border-right: none; }
+
+/* Bootstrap border utilities default to #dee2e6 — far too hot here */
+.border, .border-top, .border-right, .border-bottom, .border-left {
+    border-color: var(--border) !important;
+}
+
+.line { background-color: var(--accent); }
+
+.info      { color: var(--text-muted); }
+.info span { color: var(--text); }
+
+/* --------------------------------------------------- colour utilities ---- */
+/* text-danger is this site's accent (24 uses, mostly in headings).
+   The lighter violet is used so the small instances still clear AA. */
+.text-danger { color: var(--accent-text) !important; }
+.text-dark   { color: var(--text)        !important; }
+.text-muted  { color: var(--text-muted)  !important; }
+.text-light  { color: var(--text-body)   !important; }
+
+.bg-danger  { background-color: var(--accent) !important; }
+.bg-primary { background-color: var(--accent) !important; }
+.bg-white   { background-color: var(--surface-raised) !important; }
+
+/* ------------------------------------------------------------ buttons ---- */
+/* transparent, NOT none: `border:none` collapses Bootstrap's 1px border box
+   and shrinks the button by 2px in each axis */
+.btn-primary {
+    background: var(--accent-grad);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 20px var(--accent-glow);
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:not(:disabled):not(.disabled):active {
+    background: linear-gradient(90deg, #7C4DEE 0%, #06B6D4 100%);
+    color: #fff;
+    box-shadow: 0 6px 26px var(--accent-glow);
+}
+
+.btn-outline-danger {
+    color: var(--accent-text);
+    border-color: var(--accent);
+    background: transparent;
+}
+.btn-outline-danger:hover,
+.btn-outline-danger:focus {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+/* <button class="btn bg-primary"> has no .btn-primary, so it inherited the
+   dark body colour — unreadable on violet */
+.btn.bg-primary { color: #fff; }
+.btn.bg-primary:hover { color: #fff; background-color: #7C4DEE !important; }
+
+.btn:focus, .btn.focus { box-shadow: 0 0 0 .2rem var(--accent-soft); }
+
+/* ------------------------------------------------------ progress bars ---- */
+.progress { background-color: var(--surface-raised); }
+.progress-bar.bg-danger { background: var(--accent-grad) !important; }
+
+/* -------------------------------------------------------------- cards ---- */
+.card {
+    background-color: transparent;
+    border-color: var(--border);
+}
+.card .card-header { color: var(--text); }
+.card .card-body a.text-reset:hover { color: var(--accent-text) !important; }
+.card .card-body   { color: var(--text-body); }
+
+/* the soft-skill icons sat on a #fff disc with a 7px white ring */
+.card .card-header.has-icon i {
+    background: var(--surface-raised);
+    border-color: var(--surface-raised);
+    color: var(--accent-2);
+    box-shadow: 0 0 0 1px var(--border-strong);
+}
+
+/* ---------------------------------------------------------- portfolio ---- */
+.portfolio .filters { border-bottom-color: var(--border-strong); }
+.portfolio .filters a { color: var(--text-body); }
+.portfolio .filters a:hover { color: var(--text); }
+.portfolio .filters a.active {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* hover overlay: was rgba(248,92,112,.8) coral */
+.portfolio .portfolio-container .portfolio-item .content-holder {
+    background: linear-gradient(150deg, rgba(139, 92, 246, .92) 0%, rgba(34, 211, 238, .88) 100%);
+}
+
+/* .read-more inherits the global link colour, which put violet text on the
+   violet end of this overlay (the original had coral on coral). */
+.portfolio .portfolio-item .content-holder .read-more,
+.portfolio .portfolio-item .content-holder .read-more:hover {
+    color: #fff;
+}
+.portfolio .portfolio-item .content-holder .read-more:hover {
+    text-decoration: underline;
+}
+
+/* Thumbnail luminance across this grid currently ranges 19 -> 245, which
+   reads as an accident. A single rest-state filter normalises the band;
+   hover restores the image fully under the accent overlay. */
+.portfolio .portfolio-item img {
+    filter: brightness(.82) contrast(1.04) saturate(.92);
+    transition: filter .4s;
+}
+.portfolio .portfolio-item:hover img {
+    filter: brightness(1) contrast(1) saturate(1);
+}
+
+/* the four light-background images need more than the group treatment */
+.portfolio .portfolio-item img[src$="navigator.png"] { filter: brightness(.58) contrast(1.08) saturate(.9); }
+.portfolio .portfolio-item img[src$="sun-1.png"]     { filter: brightness(.66) contrast(1.06) saturate(.92); }
+.portfolio .portfolio-item img[src$="car-1.png"]     { filter: brightness(.74) contrast(1.05) saturate(.92); }
+.portfolio .portfolio-item img[src$="Grama-1.png"]   { filter: brightness(.78) contrast(1.04) saturate(.92); }
+
+/* ---------------------------------------------------------- blog card ---- */
+.blog-card { border-color: var(--border); background: var(--surface-raised); }
+.blog-card .content-holder .title { color: var(--text); }
+.blog-card .content-holder .post-details a { color: var(--text-muted); }
+.blog-card .content-holder .post-details a:hover { color: var(--accent-text); }
+.blog-card .content-holder .read-more { color: var(--accent-text); }
+.blog-card .content-holder .read-more:hover { color: var(--accent-2); }
+.blog-card .img-holder img { filter: brightness(.88) saturate(.95); }
+
+/* ------------------------------------------------------------ contact ---- */
+.contact .contact-form-card,
+.contact .contact-info-card {
+    background: var(--surface-raised);
+    box-shadow: inset 0 0 0 1px var(--border);
+}
+.contact .contact-title { color: var(--text); }
+.contact .contact-title::after { background: var(--accent-grad); }
+.contact .contact-info-card i { color: var(--accent-2); }
+.contact .social-icons .social-link { color: var(--text-body); }
+.contact .social-icons .social-link:hover { color: var(--accent-2); }
+
+@media (max-width: 991.98px) {
+    .contact .contact-form-card { border-bottom-color: var(--border); }
+}
+
+/* form fields — Bootstrap defaults are white-on-white here */
+.form-control {
+    background-color: var(--surface);
+    border-color: var(--border-strong);
+    color: var(--text);
+}
+.form-control:focus {
+    background-color: var(--surface);
+    border-color: var(--accent);
+    color: var(--text);
+    box-shadow: 0 0 0 .2rem var(--accent-soft);
+}
+.form-control::-webkit-input-placeholder { color: var(--text-muted); }
+.form-control::-moz-placeholder          { color: var(--text-muted); }
+.form-control:-ms-input-placeholder      { color: var(--text-muted); }
+.form-control::placeholder               { color: var(--text-muted); }
+
+/* ------------------------------------------------------------- footer ---- */
+.footer {
+    background: var(--surface-sunken);
+    box-shadow: inset 0 1px 0 var(--border);
+}
+.footer .text-light { color: var(--text-muted) !important; }
+
+/* --------------------------------------------------------------- misc ---- */
+.social-icons .social-link:hover { color: var(--accent-2); }
