@@ -11,11 +11,16 @@
 	<link rel="stylesheet" href="public_html/assets/css/dew.css">
 	<!-- dark theme overlay (colour only; remove this line to revert) -->
 	<link rel="stylesheet" href="public_html/assets/css/dark-theme.css">
+	<!-- cinematic video hero (remove this line and the matching script to revert) -->
+	<link rel="stylesheet" href="public_html/assets/css/hero-cinematic.css">
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
     <!-- Header -->
    <header class="header">
+
+        <!-- The wordmark sits below the keyed figure; the button and links
+             sit above it. See hero-cinematic.css for the layer order. -->
         <div class="container">
             <ul class="social-icons pt-3">
                 <li class="social-item"><a class="social-link text-light" href="https://www.instagram.com/_dewavishmi_13_?igsh=djNhZTZucTFkdjh5"><i class="ti-instagram" aria-hidden="true"></i></a></li>
@@ -30,6 +35,16 @@
 </button>
             </div>
         </div>
+
+        <!-- The figure, keyed off her studio backdrop by mix-blend-mode and
+             painted over the wordmark. -->
+        <div class="hero-subject" aria-hidden="true">
+            <video class="hero-video" src="public_html/assets/video/vd.mp4"
+                   muted loop playsinline preload="auto" disablepictureinpicture tabindex="-1"></video>
+        </div>
+
+        <div class="hero-fx" aria-hidden="true"></div>
+        <div class="hero-shutter" aria-hidden="true"></div>
     </header>
 
 
@@ -782,6 +797,8 @@
     
     <!-- Dew js -->
     <script src="public_html/assets/js/dew.js"></script>
+    <!-- cinematic video hero (remove with the matching stylesheet to revert) -->
+    <script src="public_html/assets/js/hero-cinematic.js"></script>
 
 </body>
 </html>

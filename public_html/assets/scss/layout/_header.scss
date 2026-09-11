@@ -1,3 +1,10 @@
+// NOTE: css/hero-cinematic.css overrides the hero at runtime -- it replaces
+// the background-image/attachment below, and swaps .header-content's
+// top + translateY centring for flexbox. Those overrides are deliberate and
+// win on specificity, so recompiling this file is safe. Before changing
+// .header-content's positioning or adding a transform here, read the
+// stacking-context note at the top of that file: the video hero depends on
+// nothing in the .header > .container > .header-content chain creating one.
 .header {
     position: relative;
     height: 80vh;
